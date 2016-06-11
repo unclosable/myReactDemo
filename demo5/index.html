@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html style="width:100%;height:100%">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="description" content="DEMO 2">
+
+  <script src="../javascripts/lib/React/react.js"></script>
+  <script src="../javascripts/lib/React/react-dom.min.js"></script>
+  <script src="../javascripts/lib/React/browser.min.js"></script>
+  <script src="../javascripts/lib/jquery-1.8.2-min.js"></script>
+  <title>DEMO 4</title>
+  <style type="text/css">
+    div{
+      float: left;
+    }
+  </style>
+</head>
+
+<body style="width:100%;height:100%">
+  <div id="fun" style="width:100%;height:100%">
+  </div>
+  <script type="text/babel">
+  Number.prototype.each = function (func) {
+  for(var i=0;i <= this; i++){  
+    func(i,this); 
+}
+};
+var all=16777215;
+var getcolor=function(index,totle){
+  var re=(all/totle*index).toString(16);
+  var reStr=re.split('.')[0];
+  for(var i=0;i<6-reStr.length;i++){
+    reStr='0'+reStr;
+  }
+  return '#'+reStr;
+
+}
+    var div=$("#fun");
+    var width=div.width(),height=div.height();
+    var TodoApp = React.createClass({
+      getInitialState: function() {
+        return {totle: (this.props.width*this.props.height)/100};
+      },
+      render: function() {
+        var add=[];
+        var createItem=function(index,totle){
+            add.push(<div key={index} style={{width:"10px",height:"10px",backgroundColor:getcolor(index,totle)}}></div>) ;
+        }
+        this.state.totle.each(createItem);
+        return (<div>{add}</div>);
+      }
+    });
+    ReactDOM.render(<TodoApp width={width} height={height}/>, $("#fun")[0]);
+  </script>
+</body>
+</html>
